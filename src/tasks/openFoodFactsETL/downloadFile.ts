@@ -17,6 +17,13 @@ async function downloadFile(
 }
 
 downloadFile(
+  'https://challenges.coode.sh/food/data/json/index.txt',
+  './temp/index.txt',
+)
+  .then(() => console.log('Arquivo baixado com sucesso!'))
+  .catch((error) => console.error('Erro ao baixar arquivo:', error))
+
+downloadFile(
   'https://challenges.coode.sh/food/data/json/products_01.json.gz',
   './temp/products_01.json.gz',
 )

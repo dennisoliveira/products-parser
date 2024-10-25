@@ -10,6 +10,7 @@ node_modules/
 
 # Typescript build outputs
 dist/
+temp/
 
 # Environment variables
 .env

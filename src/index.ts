@@ -1,11 +1,15 @@
 import express, { Application, Request, Response } from 'express'
 import dotenv from 'dotenv'
 import { setupSwagger } from './swagger'
+import scheduleTasks from './tasks'
 
 import mongodbConnect from './config/mongodb-connect'
 import Product from './models/product'
 
 dotenv.config()
+
+console.log('Iniciando aplicação...')
+scheduleTasks()
 
 const app: Application = express()
 setupSwagger(app)

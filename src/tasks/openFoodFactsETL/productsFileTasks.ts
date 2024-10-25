@@ -7,19 +7,26 @@ export const downloadProductsFiles = async (filesToDownload: string[]) => {
   const productDestinationFolder: string = './temp'
 
   try {
-    filesToDownload.forEach(async (file) => {
-      await downloadFile(
+    const downloadPromises = filesToDownload.map((file) => {
+      console.log(`Arquivo ${file} iniciando download!`)
+      return downloadFile(
         `${productOriginFilePath}/${file}`,
         productDestinationFolder,
         file,
       )
-      console.log(`Arquivo ${file} baixado com sucesso!`)
-      await extratGzipFile(
+    })
+    await Promise.all(downloadPromises)
+    console.log(`Arquivos baixados com sucesso!`)
+
+    const extratPromises = filesToDownload.map((file) => {
+      console.log(`Arquivo ${file} iniciando descompactação!`)
+      return extratGzipFile(
         `${productDestinationFolder}/${file}`,
         `${productDestinationFolder}/${file.slice(0, -3)}`,
       )
-      console.log(`Arquivo ${file} descompactado com sucesso!`)
     })
+    await Promise.all(extratPromises)
+    console.log(`Arquivos descompactados com sucesso!`)
     return true
   } catch (error) {
     console.error(`Erro ao baixar arquivo:`, error)

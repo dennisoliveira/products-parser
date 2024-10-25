@@ -5,4 +5,5 @@ import { downloadProductsFiles } from './productsFileTasks'
   const filesToDownload = await readIndexFile()
 
   await downloadProductsFiles(filesToDownload)
+  console.log(`Tarefas finalizadas`)
 })()

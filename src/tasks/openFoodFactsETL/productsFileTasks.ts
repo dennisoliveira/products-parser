@@ -1,20 +1,28 @@
 import downloadFile from '../../utils/downloadFile'
+import extratGzipFile from '../../utils/extratGzipFile'
 // import readFile from '../../utils/readFile'
 
 export const downloadProductsFiles = async (filesToDownload: string[]) => {
-  const productOriginFile: string = `https://challenges.coode.sh/food/data/json/${filesToDownload[0]}`
+  const productOriginFilePath: string = `https://challenges.coode.sh/food/data/json`
   const productDestinationFolder: string = './temp'
-  const productFileName: string = filesToDownload[0]
+
   try {
-    await downloadFile(
-      productOriginFile,
-      productDestinationFolder,
-      productFileName,
-    )
-    console.log(`Arquivo ${productFileName} baixado com sucesso!`)
+    filesToDownload.forEach(async (file) => {
+      await downloadFile(
+        `${productOriginFilePath}/${file}`,
+        productDestinationFolder,
+        file,
+      )
+      console.log(`Arquivo ${file} baixado com sucesso!`)
+      await extratGzipFile(
+        `${productDestinationFolder}/${file}`,
+        `${productDestinationFolder}/${file.slice(0, -3)}`,
+      )
+      console.log(`Arquivo ${file} descompactado com sucesso!`)
+    })
     return true
   } catch (error) {
-    console.error(`Erro ao baixar arquivo: ${productFileName}`, error)
+    console.error(`Erro ao baixar arquivo:`, error)
     return false
   }
 }

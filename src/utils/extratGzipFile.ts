@@ -5,20 +5,19 @@ import { promisify } from 'util'
 
 const pipelineAsync = promisify(pipeline)
 
-async function extractGzip(
+const extratGzipFile = async (
   inputFile: string,
   outputFile: string,
-): Promise<void> {
+): Promise<void> => {
   const input = fs.createReadStream(inputFile)
   const output = fs.createWriteStream(outputFile)
   const unzip = zlib.createGunzip()
 
   try {
     await pipelineAsync(input, unzip, output)
-    console.log(`Arquivo descompactado com sucesso para ${outputFile}`)
   } catch (error) {
-    console.error('Erro ao descompactar o arquivo:', error)
+    console.error(`Erro ao descompactar o arquivo ${outputFile}:`, error)
   }
 }
 
-extractGzip('./temp/products_01.json.gz', './temp/products_01.json')
+export default extratGzipFile

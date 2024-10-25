@@ -11,7 +11,8 @@
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json}'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "download": "ts-node src/tasks/openFoodFactsETL/downloadFile.ts",
-    "extrat": "ts-node src/tasks/openFoodFactsETL/extratGzFile.ts"
+    "extrat": "ts-node src/tasks/openFoodFactsETL/extratGzFile.ts",
+    "read": "ts-node src/tasks/openFoodFactsETL/readExtratedJsonFile.ts"
   },
   "keywords": [],
   "author": "",

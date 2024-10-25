@@ -27,14 +27,14 @@ import mongoose, { Document, Schema } from 'mongoose'
 // }
 
 interface IProduct extends Document {
-  code: number
+  code: string
   status: string
   imported_t: Date
   product_name: string
 }
 
 const productSchema = new Schema<IProduct>({
-  code: { type: Number, required: true, unique: true },
+  code: { type: String, required: true, unique: true },
   status: { type: String, required: true },
   imported_t: { type: Date, required: true },
   product_name: { type: String, required: true },

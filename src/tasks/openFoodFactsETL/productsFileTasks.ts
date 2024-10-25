@@ -41,15 +41,20 @@ export const readProductsFiles = async (
   filesToRead: string[],
   lineLimit: number = 10,
 ) => {
-  const products: Object[] = []
+  const products: any[] = []
   const filePath: string = './temp'
   const filesToReadPromises = filesToRead.map(async (file) => {
     console.log(`Lendo o arquivo ${file}`)
     const productsReaded = await readFile(`${filePath}/${file}`, lineLimit)
     productsReaded.map((product) => {
       const productObj = JSON.parse(product)
-      console.log(productObj.product_name)
-      products.push({ product_name: productObj.product_name, code: productObj.code})
+      // console.log(productObj.product_name)
+      products.push({
+        code: productObj.code.replace(/\D/g, ''),
+        status: 'published',
+        imported_t: Date(),
+        product_name: productObj.product_name,
+      })
     })
   })
   await Promise.all(filesToReadPromises)

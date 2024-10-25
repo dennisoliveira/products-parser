@@ -2,7 +2,7 @@ import swaggerJsdoc from 'swagger-jsdoc'
 import swaggerUi, { SwaggerOptions, SwaggerUiOptions } from 'swagger-ui-express'
 import { Application } from 'express'
 
-const swaggerOptions:SwaggerOptions = {
+const swaggerOptions: SwaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
@@ -19,7 +19,7 @@ const swaggerOptions:SwaggerOptions = {
   apis: ['./src/routes/*.ts'],
 }
 
-const swaggerSpec:SwaggerUiOptions = swaggerJsdoc(swaggerOptions)
+const swaggerSpec: SwaggerUiOptions = swaggerJsdoc(swaggerOptions)
 
 export const setupSwagger = (app: Application) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))

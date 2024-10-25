@@ -8,8 +8,8 @@ import Product from './models/product'
 
 dotenv.config()
 
-console.log('Iniciando aplicação...')
-scheduleTasks()
+console.log('Iniciando tarefas agendadas...')
+// scheduleTasks()
 
 const app: Application = express()
 setupSwagger(app)
@@ -19,13 +19,18 @@ const PORT = process.env.PORT || 3000
 
 const createProduct = async () => {
   try {
-    const product = new Product({
+    const product = {
       code: 123456,
       status: 'published',
-      imported_t: '2020-02-07T16:00:00Z',
+      imported_t: Date(),
+      product_name: 'Pizza',
+    }
+    await Product.findOneAndUpdate({ code: 123456 }, product, {
+      upsert: true,
+      new: true,
+      setDefaultsOnInsert: true,
     })
-    await product.save()
-    console.log('Produto criado com sucesso')
+    console.log('Produto criado/atualizado com sucesso')
   } catch (error: any) {
     console.log(error.message)
   }

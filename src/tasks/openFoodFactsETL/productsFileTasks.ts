@@ -1,6 +1,6 @@
 import downloadFile from '../../utils/downloadFile'
 import extratGzipFile from '../../utils/extratGzipFile'
-// import readFile from '../../utils/readFile'
+import readFile from '../../utils/readFile'
 
 export const downloadProductsFiles = async (filesToDownload: string[]) => {
   const productOriginFilePath: string = `https://challenges.coode.sh/food/data/json`
@@ -18,22 +18,40 @@ export const downloadProductsFiles = async (filesToDownload: string[]) => {
     await Promise.all(downloadPromises)
     console.log(`Arquivos baixados com sucesso!`)
 
+    const extratedFiles: string[] = []
     const extratPromises = filesToDownload.map((file) => {
+      const extratedFileName = file.slice(0, -3)
       console.log(`Arquivo ${file} iniciando descompactação!`)
+      extratedFiles.push(extratedFileName)
       return extratGzipFile(
         `${productDestinationFolder}/${file}`,
-        `${productDestinationFolder}/${file.slice(0, -3)}`,
+        `${productDestinationFolder}/${extratedFileName}`,
       )
     })
     await Promise.all(extratPromises)
     console.log(`Arquivos descompactados com sucesso!`)
-    return true
+    return extratedFiles
   } catch (error) {
     console.error(`Erro ao baixar arquivo:`, error)
-    return false
+    throw error
   }
 }
 
-// export const readIndexFile = async () => {
-//   console.log(await readFile('./temp/index.txt'))
-// }
+export const readProductsFiles = async (
+  filesToRead: string[],
+  lineLimit: number = 10,
+) => {
+  const products: Object[] = []
+  const filePath: string = './temp'
+  const filesToReadPromises = filesToRead.map(async (file) => {
+    console.log(`Lendo o arquivo ${file}`)
+    const productsReaded = await readFile(`${filePath}/${file}`, lineLimit)
+    productsReaded.map((product) => {
+      const productObj = JSON.parse(product)
+      console.log(productObj.product_name)
+      products.push({ product_name: productObj.product_name, code: productObj.code})
+    })
+  })
+  await Promise.all(filesToReadPromises)
+  return products
+}

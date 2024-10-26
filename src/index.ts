@@ -11,8 +11,8 @@ dotenv.config()
 
 mongodbConnect()
 
-// console.log('Iniciando tarefas agendadas...')
-// scheduleTasks()
+console.log('Iniciando tarefas agendadas...')
+scheduleTasks()
 
 const app: Application = express()
 setupSwagger(app)

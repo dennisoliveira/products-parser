@@ -1,4 +1,4 @@
-const getProcessMemoryUsage = ():object => {
+const getProcessMemoryUsage = (): object => {
   const memoryUsage = process.memoryUsage()
 
   return {

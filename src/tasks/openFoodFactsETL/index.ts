@@ -1,6 +1,7 @@
 import { downloadIndexFiles, readIndexFile } from './indexFileTasks'
 import { downloadProductsFiles, readProductsFiles } from './productsFileTasks'
 import Product from '../../models/product'
+import importService from '../../services/importService'
 
 const openfoodfactsETLTasks = async () => {
   // await downloadIndexFiles()
@@ -35,6 +36,8 @@ const openfoodfactsETLTasks = async () => {
     const result = await Product.bulkWrite(bulkOps)
     console.log('Resultado da operação em lote:', result)
     console.log(`Tarefas openfoodfactsETLTasks finalizadas`)
+    await importService.createImport(result)
+    console.log(await importService.getLastedImport())
   } catch (error) {
     console.error('Erro ao inserir ou atualizar usuários:', error)
   }

@@ -1,10 +1,8 @@
 import { downloadIndexFiles, readIndexFile } from './indexFileTasks'
 import { downloadProductsFiles, readProductsFiles } from './productsFileTasks'
-import mongodbConnect from '../../config/mongodb-connect'
 import Product from '../../models/product'
 
 const openfoodfactsETLTasks = async () => {
-  mongodbConnect()
   // await downloadIndexFiles()
   // const filesToDownload = await readIndexFile()
 

@@ -48,7 +48,6 @@ export const readProductsFiles = async (
     const productsReaded = await readFile(`${filePath}/${file}`, lineLimit)
     productsReaded.map((product) => {
       const productObj = JSON.parse(product)
-      // console.log(productObj.product_name)
       products.push({
         code: productObj.code.replace(/\D/g, ''),
         status: 'published',

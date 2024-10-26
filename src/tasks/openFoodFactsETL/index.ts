@@ -2,8 +2,8 @@ import { downloadIndexFiles, readIndexFile } from './indexFileTasks'
 import { downloadProductsFiles, readProductsFiles } from './productsFileTasks'
 import mongodbConnect from '../../config/mongodb-connect'
 import Product from '../../models/product'
-import { exit } from 'process'
-;(async () => {
+
+const openfoodfactsETLTasks = async () => {
   mongodbConnect()
   // await downloadIndexFiles()
   // const filesToDownload = await readIndexFile()
@@ -21,7 +21,7 @@ import { exit } from 'process'
     'products_09.json',
   ]
 
-  const productsJson = await readProductsFiles(extratedFiles, 3)
+  const productsJson = await readProductsFiles(extratedFiles, 2)
 
   const bulkOps = productsJson.map((product) => {
     return {
@@ -36,9 +36,10 @@ import { exit } from 'process'
   try {
     const result = await Product.bulkWrite(bulkOps)
     console.log('Resultado da operação em lote:', result)
-    console.log(`Tarefas finalizadas`)
-    exit()
+    console.log(`Tarefas openfoodfactsETLTasks finalizadas`)
   } catch (error) {
     console.error('Erro ao inserir ou atualizar usuários:', error)
   }
-})()
+}
+
+export default openfoodfactsETLTasks

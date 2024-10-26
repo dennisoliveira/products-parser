@@ -10,9 +10,6 @@
     "dev": "nodemon",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,json}'",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "download": "ts-node src/tasks/openFoodFactsETL/downloadFiles.ts",
-    "extrat": "ts-node src/tasks/openFoodFactsETL/extratGzFile.ts",
-    "read": "ts-node src/tasks/openFoodFactsETL/readFiles.ts",
     "etl": "ts-node src/tasks/openFoodFactsETL/index.ts"
   },
   "keywords": [],

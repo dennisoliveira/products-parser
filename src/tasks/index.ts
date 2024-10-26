@@ -1,13 +1,10 @@
 import cron from 'node-cron'
-
-const exampleTask = () => {
-  console.log('Executando tarea programada...')
-}
+import openfoodfactsETLTasks from './openFoodFactsETL'
 
 const scheduleTasks = () => {
   cron.schedule('*/30 * * * * *', () => {
-    console.log('Iniciando tarea programada...')
-    exampleTask()
+    console.log('Iniciando a tarea agendada openfoodfactsETLTasks...')
+    openfoodfactsETLTasks()
   })
 }
 

@@ -1,24 +1,5 @@
 import Product, { IProduct } from '../models/product'
 
-// const createProduct = async () => {
-//   try {
-//     const product = {
-//       code: 123456,
-//       status: 'published',
-//       imported_t: Date(),
-//       product_name: 'Pizza',
-//     }
-//     await Product.findOneAndUpdate({ code: 123456 }, product, {
-//       upsert: true,
-//       new: true,
-//       setDefaultsOnInsert: true,
-//     })
-//     console.log('Produto criado/atualizado com sucesso')
-//   } catch (error: any) {
-//     console.log(error.message)
-//   }
-// }
-
 export const getAllProducts = async (): Promise<IProduct[] | any[]> => {
   return await Product.find()
 }

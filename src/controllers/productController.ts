@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import Product from '../models/product'
+import productService from '../services/productService'
 
 // const createProduct = async () => {
 //   try {
@@ -22,7 +22,7 @@ import Product from '../models/product'
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find()
+    const products = await productService.getAllProducts()
     res.json(products)
   } catch (error: any) {
     res.status(500).json({ message: error.message })

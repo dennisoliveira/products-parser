@@ -14,11 +14,11 @@ mongodbConnect()
 
 const app: Application = express()
 setupSwagger(app)
+app.use(express.json())
 
 const PORT = process.env.PORT || 3000
 
 app.use('/', productRoutes)
-
 app.get('/', (req: Request, res: Response) => {
   res.send('Products Parser API')
 })

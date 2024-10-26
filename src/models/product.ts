@@ -26,7 +26,7 @@ import mongoose, { Document, Schema } from 'mongoose'
 //     "image_url": "https://static.openfoodfacts.org/images/products/20221126/front_pt.5.400.jpg"
 // }
 
-interface IProduct extends Document {
+export interface IProduct extends Document {
   code: string
   status: string
   imported_t: Date

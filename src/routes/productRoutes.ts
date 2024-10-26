@@ -3,6 +3,7 @@ import {
   createProduct,
   getProducts,
   getProductById,
+  searchProducts,
   updateProductById,
   deleteProductById,
 } from '../controllers/productController'
@@ -10,6 +11,7 @@ import {
 const router = Router()
 
 router.post('/products', createProduct)
+router.get('/products/search', searchProducts)
 router.get('/products', getProducts)
 router.get('/products/:id', getProductById)
 router.put('/products/:id', updateProductById)

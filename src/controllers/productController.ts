@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import elasticsearchConnect from '../config/elasticsearch-connect'
 import productService from '../services/productService'
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -17,6 +18,39 @@ export const getProducts = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
+}
+
+export const searchProducts = async (req: Request, res: Response) => {
+  const { query } = req.query
+
+  if (!query) {
+    res.status(400).json({ error: 'Query parameter is required' })
+    return
+  }
+
+  const result = await elasticsearchConnect.search({
+    index: 'product-index',
+    body: {
+      query: {
+        query_string: {
+          query: `*${query}*`,
+          default_field: '*',
+        },
+      },
+    },
+  })
+  console.log(`Resultado da query do elastic`)
+  console.log(result.hits.hits)
+
+  const hits = result.hits.hits
+  res.json(hits.map((hit: any) => hit._source))
+
+  // try {
+  //   const products = await productService.getAllProducts()
+  //   res.json(products)
+  // } catch (error: any) {
+  //   res.status(500).json({ message: error.message })
+  // }
 }
 
 export const getProductById = async (req: Request, res: Response) => {

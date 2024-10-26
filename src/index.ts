@@ -5,6 +5,7 @@ import scheduleTasks from './tasks'
 import productRoutes from './routes/productRoutes'
 import mongodbConnect from './config/mongodb-connect'
 import getProcessUptime from './utils/getProcessUptime'
+import getProcessMemoryUsage from './utils/getProccessMemoryUsage'
 
 dotenv.config()
 
@@ -21,8 +22,10 @@ const PORT = process.env.PORT || 3000
 
 app.use('/', productRoutes)
 app.get('/', (req: Request, res: Response) => {
+  const memoryUsage: any = getProcessMemoryUsage()
   res.send(`Products Parser API
     Uptime do sistema: ${getProcessUptime()}
+    Memory Usage: ${memoryUsage.heapUsed}
   `)
 })
 

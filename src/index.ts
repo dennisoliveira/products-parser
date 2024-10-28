@@ -6,6 +6,7 @@ import productRoutes from './routes/productRoutes'
 import mongodbConnect from './config/mongodb-connect'
 import getProcessUptime from './utils/getProcessUptime'
 import getProcessMemoryUsage from './utils/getProccessMemoryUsage'
+import importService from './services/importService'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.get('/', async (req: Request, res: Response) => {
   res.send(`Products Parser API
     Uptime do sistema: ${getProcessUptime()}
     Memory Usage: ${memoryUsage.heapUsed}
+    Last Import: ${await importService.getLastedImport()}
   `)
 })
 

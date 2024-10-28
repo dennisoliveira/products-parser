@@ -28,29 +28,27 @@ export const searchProducts = async (req: Request, res: Response) => {
     return
   }
 
-  const result = await elasticsearchConnect.search({
-    index: 'product-index',
-    body: {
-      query: {
-        query_string: {
-          query: `*${query}*`,
-          default_field: '*',
+  try {
+    const result = await elasticsearchConnect.search({
+      index: 'product-index',
+      body: {
+        query: {
+          query_string: {
+            query: `*${query}*`,
+            default_field: '*',
+          },
         },
       },
-    },
-  })
-  console.log(`Resultado da query do elastic`)
-  console.log(result.hits.hits)
-
-  const hits = result.hits.hits
-  res.json(hits.map((hit: any) => hit._source))
-
-  // try {
-  //   const products = await productService.getAllProducts()
-  //   res.json(products)
-  // } catch (error: any) {
-  //   res.status(500).json({ message: error.message })
-  // }
+    })
+    const hits = result.hits.hits
+    if(hits.length <=0 ) {
+      res.status(404).json({ message: 'Product not found' })
+      return
+    }
+    res.json(hits.map((hit: any) => hit._source))
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
 }
 
 export const getProductById = async (req: Request, res: Response) => {

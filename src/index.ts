@@ -3,7 +3,9 @@ import dotenv from 'dotenv'
 import { setupSwagger } from './docs/swagger'
 import scheduleTasks from './tasks'
 import productRoutes from './routes/productRoutes'
-import mongodbConnect, { checkMongoConnectionStatus } from './config/mongodb-connect'
+import mongodbConnect, {
+  checkMongoConnectionStatus,
+} from './config/mongodb-connect'
 import getProcessUptime from './utils/getProcessUptime'
 import getProcessMemoryUsage from './utils/getProccessMemoryUsage'
 import importService from './services/importService'
@@ -11,9 +13,6 @@ import importService from './services/importService'
 dotenv.config()
 
 mongodbConnect()
-
-console.log('Registrando tarefas agendadas...')
-scheduleTasks()
 
 const app: Application = express()
 setupSwagger(app)
@@ -36,4 +35,6 @@ app.get('/', async (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
   console.log(`Docs is running on http://localhost:${PORT}/api-docs`)
+  console.log('Registrando tarefas agendadas...')
+  scheduleTasks()
 })

@@ -5,7 +5,7 @@ export const createImport = async (
   resultElastic: object,
 ): Promise<IImport> => {
   const producsImport: IImport = new Import({
-    imported_t: Date(),
+    imported_t: new Date().toISOString(),
     resultMongo,
     resultElastic,
   })

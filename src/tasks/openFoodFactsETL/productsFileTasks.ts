@@ -8,6 +8,7 @@ export const downloadProductsFiles = async (filesToDownload: string[]) => {
 
   try {
     const downloadPromises = filesToDownload.map((file) => {
+      console.log(`Arquivo ${file} iniciando download!`)
       return downloadFile(
         `${productOriginFilePath}/${file}`,
         productDestinationFolder,
@@ -43,17 +44,38 @@ export const readProductsFiles = async (
   const products: any[] = []
   const filePath: string = './temp'
   const filesToReadPromises = filesToRead.map(async (file) => {
+    console.log(`Lendo arquivo ${file}`)
     const productsReaded = await readFile(`${filePath}/${file}`, lineLimit)
     productsReaded.map((product) => {
       const productObj = JSON.parse(product)
       products.push({
         code: productObj.code.replace(/\D/g, ''),
-        status: productObj.status,
-        imported_t: Date(),
+        status: 'published',
+        imported_t: new Date().toISOString(),
         product_name: productObj.product_name,
+        url: productObj.url,
+        creator: productObj.creator,
+        created_t: new Date(parseInt(productObj.created_t) * 1000),
+        last_modified_t: new Date(parseInt(productObj.last_modified_t) * 1000),
+        quantity: productObj.quantity,
+        brands: productObj.brands,
+        categories: productObj.categories,
+        labels: productObj.labels,
+        cities: productObj.cities,
+        purchase_places: productObj.purchase_places,
+        stores: productObj.stores,
+        ingredients_text: productObj.ingredients_text,
+        traces: productObj.traces,
+        serving_size: productObj.serving_size,
+        serving_quantity: productObj.serving_quantity,
+        nutriscore_score: productObj.nutriscore_score,
+        nutriscore_grade: productObj.nutriscore_grade,
+        main_category: productObj.main_category,
+        image_url: productObj.image_url,
       })
     })
   })
   await Promise.all(filesToReadPromises)
+  console.log(`Arquivos lidos com sucesso!`)
   return products
 }

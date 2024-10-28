@@ -1,0 +1,5 @@
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/products-parser
+ELASTIC_NODE=http://localhost:9200
+ELASTIC_USER=
+ELASTIC_PASS=

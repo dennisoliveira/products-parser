@@ -1,9 +1,13 @@
 import Import, { IImport } from '../models/import'
 
-export const createImport = async (result: object): Promise<IImport> => {
+export const createImport = async (
+  resultMongo: object,
+  resultElastic: object,
+): Promise<IImport> => {
   const producsImport: IImport = new Import({
     imported_t: Date(),
-    result,
+    resultMongo,
+    resultElastic,
   })
   return await producsImport.save()
 }

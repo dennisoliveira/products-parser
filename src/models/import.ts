@@ -7,7 +7,8 @@ export interface IImport extends Document {
 
 const importSchema: Schema = new Schema({
   imported_t: { type: Date, required: true },
-  result: { type: Object, required: false },
+  resultMongo: { type: Object, required: false },
+  resultElastic: { type: Object, required: false },
 })
 
 const Import = mongoose.model<IImport>('Import', importSchema)

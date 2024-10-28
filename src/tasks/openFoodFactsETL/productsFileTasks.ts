@@ -8,7 +8,6 @@ export const downloadProductsFiles = async (filesToDownload: string[]) => {
 
   try {
     const downloadPromises = filesToDownload.map((file) => {
-      console.log(`Arquivo ${file} iniciando download!`)
       return downloadFile(
         `${productOriginFilePath}/${file}`,
         productDestinationFolder,
@@ -44,13 +43,12 @@ export const readProductsFiles = async (
   const products: any[] = []
   const filePath: string = './temp'
   const filesToReadPromises = filesToRead.map(async (file) => {
-    console.log(`Lendo o arquivo ${file}`)
     const productsReaded = await readFile(`${filePath}/${file}`, lineLimit)
     productsReaded.map((product) => {
       const productObj = JSON.parse(product)
       products.push({
         code: productObj.code.replace(/\D/g, ''),
-        status: 'published',
+        status: productObj.status,
         imported_t: Date(),
         product_name: productObj.product_name,
       })

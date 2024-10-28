@@ -41,7 +41,7 @@ export const searchProducts = async (req: Request, res: Response) => {
       },
     })
     const hits = result.hits.hits
-    if(hits.length <=0 ) {
+    if (hits.length <= 0) {
       res.status(404).json({ message: 'Product not found' })
       return
     }

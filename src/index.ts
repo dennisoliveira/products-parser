@@ -22,6 +22,6 @@ app.get('/', indexRoutes)
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
   console.log(`Docs is running on http://localhost:${PORT}/api-docs`)
-  // console.log('Registrando tarefas agendadas...')
-  // scheduleTasks()
+  console.log('Registrando tarefas agendadas...')
+  scheduleTasks()
 })

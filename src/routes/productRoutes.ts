@@ -82,9 +82,16 @@ router.get('/products', getProducts)
 
 /**
  * @swagger
- * /products/:id:
+ * /products/{id}:
  *   get:
  *     description: Retorna um Json com todos os produtos
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID do produto que você deseja buscar
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Sucesso
@@ -99,9 +106,16 @@ router.get('/products/:id', getProductById)
 
 /**
  * @swagger
- * /products/:id:
+ * /products/{id}:
  *   put:
  *     description: Retorna um Json com todos os produtos
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID do produto que você deseja buscar
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Sucesso
@@ -116,9 +130,16 @@ router.put('/products/:id', updateProductById)
 
 /**
  * @swagger
- * /products/:id:
+ * /products/{id}:
  *   delete:
  *     description: Retorna um Json com todos os produtos
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID do produto que você deseja buscar
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Sucesso
